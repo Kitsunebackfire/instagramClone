@@ -1,0 +1,13 @@
+.header {
+    background-color: white;
+  padding: 20px 70px 20px 70px;
+  object-fit: contain;
+  border-bottom: 1px solid lightgray;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__instagramLogo {
+    height: 37px;
+}
