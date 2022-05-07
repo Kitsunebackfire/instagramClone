@@ -2,13 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const signInSlice = createSlice({
   name: "signIn",
-  initialState: { openSignIn: false },
+  initialState: { signInIsOpen: false },
   reducers: {
     handleOpenSignIn(state) {
-      state.openSignIn = true;
+      state.signInIsOpen = true;
     },
     handleCloseSignIn(state) {
-      state.openSignIn = false;
+      state.signInIsOpen = false;
     },
   },
 });

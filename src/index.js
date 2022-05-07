@@ -3,7 +3,9 @@ import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
 import App from "./routes/App";
+import UserPage from "./routes/UserPage";
 import "./index.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -11,7 +13,12 @@ const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <BrowserRouter>
+        <Routes>
+          <Route index path="/" element={<App />} />
+          <Route path="/userProfile" element={<UserPage />} />
+        </Routes>
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>
 );

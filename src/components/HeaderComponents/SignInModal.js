@@ -1,14 +1,19 @@
 import React, { useState } from "react";
+import "./SignInModal.css";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { Input } from "@mui/material";
 import Modal from "@mui/material/Modal";
 import { useDispatch, useSelector } from "react-redux";
-import { signInActions } from "../app/slices/signInSlice";
+import { signInActions } from "../../app/slices/signInSlice";
+import { loginInfoActions } from "../../app/slices/loginInfoSlice";
 
 const SignInModal = () => {
   const dispatch = useDispatch();
-  const signInIsOpen = useSelector((state) => state.signIn.openSignIn);
+  const signInIsOpen = useSelector((state) => state.signIn.signInIsOpen);
+  //const usernameState = useSelector((state) => state.loginInfo.username);
+  const emailState = useSelector((state) => state.loginInfo.email);
+  const passwordState = useSelector((state) => state.loginInfo.password);
   //const [openSignIn, setOpenSignIn] = useState(false);
   const handleOpenSignIn = () => dispatch(signInActions.handleOpenSignIn());
   const handleCloseSignIn = () => dispatch(signInActions.handleCloseSignIn());
@@ -36,27 +41,31 @@ const SignInModal = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <form className="modal__signup">
+          <form className="signInModal__modal">
             <img
               alt="instagram logo"
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzFj87v7cdZAMuQzMol5zsNpdwU87kaGE270YOjLf8vIklU9dfvQnZ_yKE5AiLvgttPA&usqp=CAU"
-              className="modal__image"
+              className="signInModal__image"
             />
 
             <Input
               placeholder="email"
               type="email"
               required
-              //value={email}
-              //onChange={(e) => setEmail(e.target.value)}
+              value={emailState}
+              onChange={(e) =>
+                dispatch(loginInfoActions.setEmail(e.target.value))
+              }
             />
             <Input
               placeholder="password"
               type="password"
               minLength="6"
               required
-              //value={password}
-              //onChange={(e) => setPassword(e.target.value)}
+              value={passwordState}
+              onChange={(e) =>
+                dispatch(loginInfoActions.setPassword(e.target.value))
+              }
             />
             <Button style={{ marginTop: "10px" }}>Sign In</Button>
           </form>

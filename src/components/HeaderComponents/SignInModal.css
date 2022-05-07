@@ -1,0 +1,13 @@
+.signInModal__modal {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-items: center;
+  }
+  
+.signInModal__image {
+    width: 120px;
+    margin-bottom: 10px;
+    align-self: center;
+}
+  

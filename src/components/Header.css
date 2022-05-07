@@ -11,3 +11,25 @@
 .header__instagramLogo {
     height: 37px;
 }
+
+.header__loginContainer {
+  display: flex;
+  
+}
+
+.header__navContainer {
+  display: flex;
+  gap: 10px;
+}
+
+.header__navIcon {
+  height: 40px;
+  color: black;
+}
+
+
+
+.header__navIcon:hover {
+  height: 40px;
+  color: rgb(117, 117, 117);
+}

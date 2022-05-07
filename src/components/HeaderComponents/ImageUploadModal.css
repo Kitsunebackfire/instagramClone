@@ -1,0 +1,20 @@
+.imageUploadModal__icon {
+    height: 40px;
+    color: black;
+}
+.imageUploadModal__icon:hover {
+    height: 40px;
+    color: rgb(117, 117, 117);
+}
+
+
+
+
+
+.imageUploadModal__modal {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-items: center;
+    gap: 5px;
+  }
