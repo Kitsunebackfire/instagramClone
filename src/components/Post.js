@@ -14,7 +14,7 @@ import {
 } from "firebase/firestore";
 
 function Post({ postId, username, index, caption, imageUrl, displayName }) {
-  /*const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
   const subCollection = collection(db, `posts/${postId}/comments`);
   const commentInputControl = document.querySelector(".commentInput");
@@ -49,7 +49,7 @@ function Post({ postId, username, index, caption, imageUrl, displayName }) {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [postId]);
-*/
+
   return (
     <div key={index} className="post">
       <div className="post__header">
@@ -69,6 +69,25 @@ function Post({ postId, username, index, caption, imageUrl, displayName }) {
         <strong>{username}</strong>: {caption}
       </h4>
       {/* username + caption */}
+      {comments.map((comment, index) => {
+        return (
+          <div key={index}>
+            <span className="post__commentsUser">
+              <strong>{comment.username}:</strong>{" "}
+            </span>
+            <span className="post__commentsComment">{comment.comment}</span>
+          </div>
+        );
+      })}
+      <input
+        className="commentInput"
+        onChange={(e) => {
+          setComment(e.target.value);
+        }}
+        type="text"
+        placeholder="Add a comment"
+      ></input>
+      <Button onClick={handleComment}>Post</Button>
     </div>
   );
 }

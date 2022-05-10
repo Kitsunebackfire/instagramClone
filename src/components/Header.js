@@ -6,8 +6,13 @@ import SignUpModal from "./HeaderComponents/SignUpModal";
 import ImageUploadModal from "./HeaderComponents/ImageUploadModal";
 import { mdiAccountCircleOutline, mdiHomeCircleOutline } from "@mdi/js";
 import Icon from "@mdi/react";
+import { useDispatch, useSelector } from "react-redux";
+import { loginInfoActions } from "../app/slices/loginInfoSlice";
+import Logout from "./HeaderComponents/Logout";
 
 function Header() {
+  const loggedIn = useSelector((state) => state.loginInfo.loggedIn);
+
   return (
     <div className="header">
       <img
@@ -33,11 +38,14 @@ function Header() {
           />
         </Link>
       </div>
-
-      <div className="header__loginContainer">
-        <SignInModal />
-        <SignUpModal />
-      </div>
+      {loggedIn ? (
+        <Logout />
+      ) : (
+        <div className="header__loginContainer">
+          <SignInModal />
+          <SignUpModal />
+        </div>
+      )}
     </div>
   );
 }

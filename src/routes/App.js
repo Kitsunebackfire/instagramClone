@@ -13,11 +13,16 @@ import {
 } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { postsSliceActions } from "../app/slices/postsSlice";
+import { loginInfoActions } from "../app/slices/loginInfoSlice";
+import { signUpActions } from "../app/slices/signUpSlice";
+import { signInActions } from "../app/slices/signInSlice";
 
 function App() {
   const dispatch = useDispatch();
   const setPosts = (arg) => dispatch(postsSliceActions.setPosts(arg));
   const postsState = useSelector((state) => state.posts.posts);
+
+  const username = useSelector((state) => state.loginInfo.username);
 
   /*const posts = [
     {
@@ -34,6 +39,7 @@ function App() {
     },
   ];*/
 
+  // sets posts in store
   useEffect(() => {
     const q = query(postsColRef, orderBy("timestamp", "desc"));
     const unsub = onSnapshot(q, (snapshot) => {
@@ -48,6 +54,55 @@ function App() {
     });
     return () => unsub();
   }, []);
+
+  // monitors authState and sets user & display name.
+  useEffect(() => {
+    const setUser = (arg) => dispatch(loginInfoActions.setUser(arg));
+    const setDisplayName = (arg) =>
+      dispatch(loginInfoActions.setDisplayName(arg));
+    const handleCloseSignUp = () => dispatch(signUpActions.handleCloseSignUp());
+    const handleCloseSignIn = () => dispatch(signInActions.handleCloseSignIn());
+    const resetForms = () => dispatch(loginInfoActions.resetForms);
+
+    const unsubscribe = onAuthStateChanged(auth, (authUser) => {
+      if (authUser) {
+        console.log(authUser.displayName);
+
+        // state tracking of user
+        setUser(authUser);
+        if (authUser.displayName) {
+          setDisplayName(authUser.displayName);
+          // dont update username
+          handleCloseSignIn();
+          handleCloseSignUp();
+        } else {
+          // if we just created someone
+          updateProfile(auth.currentUser, { displayName: username })
+            .then(() => {
+              setDisplayName(authUser.displayName);
+              //profile updates
+              console.log("profile updated and assigned a username");
+              //console.log(user);
+              resetForms();
+              handleCloseSignUp();
+            })
+            .catch((err) => {
+              console.log(
+                `error occured trying to update profile, error message: ${err}`
+              );
+            });
+        }
+      } else {
+        // user has logged out
+        setUser(null);
+        console.log("no user logged in");
+      }
+    });
+    return () => {
+      // perform cleanup action before firing the use effect again
+      return unsubscribe();
+    };
+  }, [dispatch, username]);
 
   return (
     <div className="app">
@@ -82,3 +137,24 @@ function App() {
 }
 
 export default App;
+
+/*
+<div key={index} className="post">
+              <div className="post__header">
+                <Avatar
+                  className="post__avatar"
+                  alt={post.username}
+                  src="/static/images/avatar/1.jpg"
+                />
+                <h3>{post.username}</h3>
+              </div>
+
+              
+
+              <img className="post__image" alt="sub" src={post.imageUrl} />
+              
+              <h4 className="post__text">
+                <strong>{post.username}</strong>: {post.caption}
+              </h4>
+              
+            </div> */

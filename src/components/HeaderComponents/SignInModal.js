@@ -7,6 +7,13 @@ import Modal from "@mui/material/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { signInActions } from "../../app/slices/signInSlice";
 import { loginInfoActions } from "../../app/slices/loginInfoSlice";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  updateProfile,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../../firebase";
 
 const SignInModal = () => {
   const dispatch = useDispatch();
@@ -17,6 +24,7 @@ const SignInModal = () => {
   //const [openSignIn, setOpenSignIn] = useState(false);
   const handleOpenSignIn = () => dispatch(signInActions.handleOpenSignIn());
   const handleCloseSignIn = () => dispatch(signInActions.handleCloseSignIn());
+  const setLoggedIn = () => dispatch(loginInfoActions.setLoggedIn());
 
   const style = {
     position: "absolute",
@@ -28,6 +36,21 @@ const SignInModal = () => {
     border: "2px solid #000",
     boxShadow: 24,
     p: 4,
+  };
+
+  const signIn = (event) => {
+    event.preventDefault();
+
+    signInWithEmailAndPassword(auth, emailState, passwordState)
+      .then((userCredential) => {
+        // Signed in
+        console.log("log in successful via sign in");
+        setLoggedIn();
+        // ...
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -67,7 +90,9 @@ const SignInModal = () => {
                 dispatch(loginInfoActions.setPassword(e.target.value))
               }
             />
-            <Button style={{ marginTop: "10px" }}>Sign In</Button>
+            <Button onClick={(e) => signIn(e)} style={{ marginTop: "10px" }}>
+              Sign In
+            </Button>
           </form>
         </Box>
       </Modal>

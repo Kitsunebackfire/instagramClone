@@ -7,6 +7,13 @@ import Modal from "@mui/material/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { signUpActions } from "../../app/slices/signUpSlice";
 import { loginInfoActions } from "../../app/slices/loginInfoSlice";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  updateProfile,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../../firebase";
 
 const SignUpModal = () => {
   const dispatch = useDispatch();
@@ -16,6 +23,7 @@ const SignUpModal = () => {
   const signUpIsOpen = useSelector((state) => state.signUp.signUpIsOpen);
   const handleOpenSignUp = () => dispatch(signUpActions.handleOpenSignUp());
   const handleCloseSignUp = () => dispatch(signUpActions.handleCloseSignUp());
+  const setLoggedIn = () => dispatch(loginInfoActions.setLoggedIn());
 
   const style = {
     position: "absolute",
@@ -27,6 +35,20 @@ const SignUpModal = () => {
     border: "2px solid #000",
     boxShadow: 24,
     p: 4,
+  };
+
+  const signUp = (event) => {
+    event.preventDefault();
+    createUserWithEmailAndPassword(auth, emailState, passwordState)
+      .then((cred) => {
+        console.log("user created", cred.user);
+        setLoggedIn();
+      })
+      .catch((err) => {
+        alert(
+          `error occurred trying to createUserWithEmailAndPassword, ${err.message}`
+        );
+      });
   };
   return (
     <div>
@@ -76,7 +98,7 @@ const SignUpModal = () => {
 
             {}
             <Button
-              //onClick={signUp}
+              onClick={(e) => signUp(e)}
               type="submit"
               style={{ marginTop: "10px" }}
             >
