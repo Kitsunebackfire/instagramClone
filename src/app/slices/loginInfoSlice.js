@@ -16,16 +16,15 @@ const loginInfoSlice = createSlice({
       state.email = action.payload;
       console.log(state.email);
     },
-    resetEmail(state) {
+    resetEmailandPassword(state) {
       state.email = "";
-      console.log(state.email);
+      state.password = "";
+      console.log(
+        `reset both the email and password, ${state.email} + ${state.password}`
+      );
     },
     setPassword(state, action) {
       state.password = action.payload;
-      console.log(state.password);
-    },
-    resetPassword(state) {
-      state.password = "";
       console.log(state.password);
     },
   },

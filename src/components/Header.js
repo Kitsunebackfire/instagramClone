@@ -15,24 +15,23 @@ function Header() {
         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzFj87v7cdZAMuQzMol5zsNpdwU87kaGE270YOjLf8vIklU9dfvQnZ_yKE5AiLvgttPA&usqp=CAU"
         className="header__instagramLogo"
       />
-      <div>
-        <div className="header__navContainer">
-          <Link to="/">
-            <Icon
-              className="header__navIcon"
-              path={mdiHomeCircleOutline}
-              title="Home"
-            />
-          </Link>
-          <ImageUploadModal />
-          <Link to="/userProfile">
-            <Icon
-              className="header__navIcon"
-              path={mdiAccountCircleOutline}
-              title="User Profile"
-            />
-          </Link>
-        </div>
+
+      <div className="header__navContainer">
+        <Link to="/">
+          <Icon
+            className="header__navIcon"
+            path={mdiHomeCircleOutline}
+            title="Home"
+          />
+        </Link>
+        <ImageUploadModal />
+        <Link to="/userProfile">
+          <Icon
+            className="header__navIcon"
+            path={mdiAccountCircleOutline}
+            title="User Profile"
+          />
+        </Link>
       </div>
 
       <div className="header__loginContainer">
