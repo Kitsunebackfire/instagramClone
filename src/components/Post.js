@@ -12,12 +12,21 @@ import {
   serverTimestamp,
   orderBy,
 } from "firebase/firestore";
+import { useSelector } from "react-redux";
+// only taking in post item from array and index
+// display name is acquired through loginInfoSlice state properties
 
-function Post({ postId, username, index, caption, imageUrl, displayName }) {
+function Post({ post, index }) {
+  const postId = post.id;
+  const username = post.username;
+  const caption = post.caption;
+  const imageUrl = post.imageUrl;
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
   const subCollection = collection(db, `posts/${postId}/comments`);
   const commentInputControl = document.querySelector(".commentInput");
+  const displayName = useSelector((state) => state.loginInfo.displayName);
+  const user = useSelector((state) => state.loginInfo.user);
 
   const handleComment = () => {
     try {
@@ -65,31 +74,58 @@ function Post({ postId, username, index, caption, imageUrl, displayName }) {
 
       <img className="post__image" alt="sub" src={imageUrl} />
       {/* image */}
-      <h4 className="post__text">
-        <strong>{username}</strong>: {caption}
-      </h4>
+
       {/* username + caption */}
-      {comments.map((comment, index) => {
-        return (
-          <div key={index}>
-            <span className="post__commentsUser">
-              <strong>{comment.username}:</strong>{" "}
-            </span>
-            <span className="post__commentsComment">{comment.comment}</span>
-          </div>
-        );
-      })}
-      <input
-        className="commentInput"
-        onChange={(e) => {
-          setComment(e.target.value);
-        }}
-        type="text"
-        placeholder="Add a comment"
-      ></input>
-      <Button onClick={handleComment}>Post</Button>
+      <div className="post__commentsContainer">
+        <div className="post__text">
+          <strong>{username}</strong>: {caption}
+        </div>
+        {comments.map((comment, index) => {
+          return (
+            <div key={index}>
+              <span className="post__commentsUser">
+                <strong>{comment.username}:</strong>{" "}
+              </span>
+              <span className="post__commentsComment">{comment.comment}</span>
+            </div>
+          );
+        })}
+      </div>
+      {user ? (
+        <div className="post__commentInputContainer">
+          <input
+            className="post__commentInput"
+            onChange={(e) => {
+              setComment(e.target.value);
+            }}
+            type="text"
+            placeholder="Add a comment..."
+          ></input>
+          <Button className="post__postButton" onClick={handleComment}>
+            Post
+          </Button>
+        </div>
+      ) : (
+        <div className="post__commentInputContainer">
+          <input
+            disabled
+            className="post__commentInput"
+            onChange={(e) => {
+              setComment(e.target.value);
+            }}
+            type="text"
+            placeholder="Sign In to comment..."
+          ></input>
+          <Button disabled className="post__postButton" onClick={handleComment}>
+            Post
+          </Button>
+        </div>
+      )}
     </div>
   );
 }
 
 export default Post;
+{
+  /* <div className="post__signInToComment">sign in to comment</div> */
+}

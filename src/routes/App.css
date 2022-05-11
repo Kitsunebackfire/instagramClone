@@ -1,9 +1,13 @@
-.app {
-  background-color: #fafafa;
-  height: 100vh;
+* {
+  
 }
 
-.app__postsContainer {
+.app {
+  background-color: #fafafa;
+  
+}
+
+.app__postsContainer {background-color: #fafafa;
   display: flex;
   justify-items: center;
   align-items: center;

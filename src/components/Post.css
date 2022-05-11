@@ -15,8 +15,17 @@
 .post {
 }
 
+.post__commentsContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 13px 15px;
+  
+  border-bottom: 1px solid rgb(229, 229, 229);
+}
+
 .post__text {
-  padding: 20px;
+  font-size: 1.2rem;
+  margin: 10px 0 ;
   font-weight: normal;
 }
 
@@ -28,4 +37,39 @@
 
 .post__avatar {
   margin-right: 10px;
+}
+
+.post__signInToComment {
+  padding: 10px;
+  text-align: center;
+}
+
+
+
+.post__commentsUser {
+  color: rgb(0, 0, 0);
+  font-size: 1rem;
+  margin-left: 5px;
+}
+
+.post__commentInputContainer{
+  display: flex;
+  justify-content: space-between;
+  margin:0 20px;
+  object-fit: contain;
+}
+
+.post__commentInput {
+  outline: none;
+  border: none;
+  width: 100%;
+  padding-left: 10px;
+  border-radius: 5px;
+}
+.post__commentInput:disabled {
+  background-color: white;
+}
+
+.post__postButton {
+  justify-self: center;
 }

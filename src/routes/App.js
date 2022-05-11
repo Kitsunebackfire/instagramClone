@@ -16,6 +16,7 @@ import { postsSliceActions } from "../app/slices/postsSlice";
 import { loginInfoActions } from "../app/slices/loginInfoSlice";
 import { signUpActions } from "../app/slices/signUpSlice";
 import { signInActions } from "../app/slices/signInSlice";
+import Post from "../components/Post";
 
 function App() {
   const dispatch = useDispatch();
@@ -110,24 +111,8 @@ function App() {
       <div className="app__postsContainer">
         {postsState.map((post, index) => {
           return (
-            <div key={index} className="post">
-              <div className="post__header">
-                <Avatar
-                  className="post__avatar"
-                  alt={post.username}
-                  src="/static/images/avatar/1.jpg"
-                />
-                <h3>{post.username}</h3>
-              </div>
-
-              {/*header -> avatar + username */}
-
-              <img className="post__image" alt="sub" src={post.imageUrl} />
-              {/* image */}
-              <h4 className="post__text">
-                <strong>{post.username}</strong>: {post.caption}
-              </h4>
-              {/* username + caption */}
+            <div key={index}>
+              <Post post={post} index={index} />
             </div>
           );
         })}

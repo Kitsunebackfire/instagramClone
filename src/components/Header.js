@@ -11,7 +11,7 @@ import { loginInfoActions } from "../app/slices/loginInfoSlice";
 import Logout from "./HeaderComponents/Logout";
 
 function Header() {
-  const loggedIn = useSelector((state) => state.loginInfo.loggedIn);
+  const user = useSelector((state) => state.loginInfo.user);
 
   return (
     <div className="header">
@@ -38,7 +38,7 @@ function Header() {
           />
         </Link>
       </div>
-      {loggedIn ? (
+      {user ? (
         <Logout />
       ) : (
         <div className="header__loginContainer">
