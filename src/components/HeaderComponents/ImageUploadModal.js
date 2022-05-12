@@ -6,6 +6,10 @@ import Button from "@mui/material/Button";
 import { Input } from "@mui/material";
 import Modal from "@mui/material/Modal";
 import "./ImageUploadModal.css";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { addDoc, serverTimestamp } from "firebase/firestore";
+import { storage, postsColRef } from "../../firebase.js";
+import { useSelector } from "react-redux";
 
 function ImageUploadModal() {
   const style = {
@@ -19,8 +23,51 @@ function ImageUploadModal() {
     boxShadow: 24,
     p: 4,
   };
-
+  const user = useSelector((state) => state.loginInfo.user);
+  const [caption, setCaption] = useState("");
+  const [image, setImage] = useState(null);
   const [openUpload, setOpenUpload] = useState(false);
+  const captionInput = document.getElementById("caption_input");
+  const fileUpload = document.getElementById("file_upload");
+
+  const handleChange = (e) => {
+    if (e.target.files[0]) {
+      setImage(e.target.files[0]);
+    }
+  };
+
+  const resetFields = () => {
+    setCaption("");
+    setImage(null);
+    captionInput.value = "";
+    fileUpload.value = null;
+  };
+
+  const handleUpload = () => {
+    if (image === null) return;
+    const imageRef = ref(storage, `images/${image.name}`);
+    uploadBytes(imageRef, image).then(() => {
+      alert("Image Uploaded");
+
+      // upload is successful
+      getDownloadURL(imageRef).then((url) => {
+        try {
+          addDoc(postsColRef, {
+            timestamp: serverTimestamp(),
+            caption: caption,
+            imageUrl: url,
+            username: user.displayName,
+          });
+          resetFields();
+          setOpenUpload(false);
+        } catch (err) {
+          console.log(err);
+        }
+      });
+
+      /**/
+    });
+  };
 
   return (
     <div>
@@ -50,15 +97,20 @@ function ImageUploadModal() {
               id="caption_input"
               type="text"
               placeholder="Enter a caption..."
-              //onChange={(e) => setCaption(e.target.value)}
+              onChange={(e) => setCaption(e.target.value)}
             />
             <Input
               className="imageUpload__fileInput"
               id="file_upload"
               type="file"
-              //onChange={handleChange}
+              onChange={handleChange}
             />
-            <Button className="imageUploadModal__uploadBtn">Upload</Button>
+            <Button
+              className="imageUploadModal__uploadBtn"
+              onClick={handleUpload}
+            >
+              Upload
+            </Button>
           </form>
         </Box>
       </Modal>

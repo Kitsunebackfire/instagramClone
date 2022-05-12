@@ -73,6 +73,7 @@ const SignInModal = () => {
 
             <Input
               placeholder="email"
+              name="email"
               type="email"
               required
               value={emailState}
@@ -82,6 +83,7 @@ const SignInModal = () => {
             />
             <Input
               placeholder="password"
+              name="password"
               type="password"
               minLength="6"
               required

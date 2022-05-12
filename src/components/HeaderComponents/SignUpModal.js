@@ -70,6 +70,7 @@ const SignUpModal = () => {
             <Input
               placeholder="username"
               type="text"
+              name="username"
               required
               value={usernameState}
               onChange={(e) =>
@@ -79,6 +80,7 @@ const SignUpModal = () => {
             <Input
               placeholder="email"
               type="email"
+              name="email"
               required
               value={emailState}
               onChange={(e) =>
@@ -88,6 +90,7 @@ const SignUpModal = () => {
             <Input
               placeholder="password"
               type="password"
+              name="password"
               minLength="6"
               required
               value={passwordState}
