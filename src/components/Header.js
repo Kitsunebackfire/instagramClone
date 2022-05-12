@@ -21,25 +21,48 @@ function Header() {
         className="header__instagramLogo"
       />
 
-      <div className="header__navContainer">
-        <Link to="/">
-          <Icon
-            className="header__navIcon"
-            path={mdiHomeCircleOutline}
-            title="Home"
-          />
-        </Link>
-        <ImageUploadModal />
-        <Link to="/userProfile">
-          <Icon
-            className="header__navIcon"
-            path={mdiAccountCircleOutline}
-            title="User Profile"
-          />
-        </Link>
-      </div>
       {user ? (
-        <Logout />
+        <div className="header__navContainer">
+          <Link to="/">
+            <Icon
+              className="header__navIcon"
+              path={mdiHomeCircleOutline}
+              title="Home"
+            />
+          </Link>
+          <ImageUploadModal />
+          <Link to="/userProfile">
+            <Icon
+              className="header__navIcon"
+              path={mdiAccountCircleOutline}
+              title="User Profile"
+            />
+          </Link>
+        </div>
+      ) : (
+        <div className="header__navContainer">
+          <Link to="/">
+            <Icon
+              className="header__navIcon"
+              path={mdiHomeCircleOutline}
+              title="Home"
+            />
+          </Link>
+
+          <Link to="/userProfile">
+            <Icon
+              className="header__navIcon"
+              path={mdiAccountCircleOutline}
+              title="User Profile"
+            />
+          </Link>
+        </div>
+      )}
+
+      {user ? (
+        <div className="header__loginContainer">
+          <Logout />
+        </div>
       ) : (
         <div className="header__loginContainer">
           <SignInModal />

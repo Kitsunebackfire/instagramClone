@@ -5,6 +5,7 @@
 .imageUploadModal__icon:hover {
     height: 40px;
     color: rgb(117, 117, 117);
+    cursor: pointer;
 }
 
 

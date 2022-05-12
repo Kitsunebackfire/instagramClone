@@ -9,11 +9,13 @@ import { signOut } from "firebase/auth";
 function Logout() {
   const dispatch = useDispatch();
   const setLoggedIn = () => dispatch(loginInfoActions.setLoggedIn());
+  const resetForms = () => dispatch(loginInfoActions.resetForms());
   const logoutUser = (e) => {
     e.preventDefault();
     signOut(auth)
       .then(() => {
         setLoggedIn();
+        resetForms();
       })
       .catch((err) => {
         // An error happened.
