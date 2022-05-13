@@ -1,0 +1,14 @@
+.userHeader {
+    display: grid;
+    background-color: pink;
+    padding: 20px;
+    height: 200px;
+    
+}
+
+
+
+.userHeader__infoContainer{
+    display: flex;
+    flex-direction: column;
+}

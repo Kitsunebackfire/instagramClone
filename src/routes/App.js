@@ -57,7 +57,7 @@ function App() {
   }, []);
 
   // monitors authState and sets user & display name.
-  useEffect(() => {
+  /*useEffect(() => {
     const setUser = (arg) => dispatch(loginInfoActions.setUser(arg));
     const setDisplayName = (arg) =>
       dispatch(loginInfoActions.setDisplayName(arg));
@@ -103,7 +103,7 @@ function App() {
       // perform cleanup action before firing the use effect again
       return unsubscribe();
     };
-  }, [dispatch, username]);
+  }, [dispatch, username]);*/
 
   return (
     <div className="app">

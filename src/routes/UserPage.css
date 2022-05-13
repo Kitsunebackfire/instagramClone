@@ -1,4 +1,6 @@
-.app {
-    background-color: #fafafa;
-    height: 100vh;
-  }
+.userPage__body{
+  background-color: #eb7272;
+  max-width: 75vw;
+  min-width: 300px;
+  margin: auto;
+}

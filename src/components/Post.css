@@ -25,10 +25,20 @@
 }
 
 .post__text {
+  display: flex;
+  flex-direction: row;
+  
+  align-items: center;
   font-size: 1.2rem;
-  margin: 10px 0 ;
+  margin-top: 10px;
   font-weight: normal;
 }
+
+.post__commentAvatar {
+  margin-left: 20px;
+  margin-right: 10px;
+}
+
 
 .post__header {
   display: flex;
@@ -50,7 +60,7 @@
 .post__commentsUser {
   color: rgb(0, 0, 0);
   font-size: 1rem;
-  margin-left: 5px;
+  margin-left: 25px;
 }
 
 .post__commentInputContainer{

@@ -1,18 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import "./SignInModal.css";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { Input, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import Modal from "@mui/material/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { signInActions } from "../../app/slices/signInSlice";
 import { loginInfoActions } from "../../app/slices/loginInfoSlice";
-import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  updateProfile,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 
 const SignInModal = () => {
@@ -94,7 +89,7 @@ const SignInModal = () => {
                 dispatch(loginInfoActions.setPassword(e.target.value))
               }
             />
-            <Button type="submit" style={{ marginTop: "10px" }}>
+            <Button type="submit" style={{ marginTop: "20px" }}>
               Sign In
             </Button>
           </form>

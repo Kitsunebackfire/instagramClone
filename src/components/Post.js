@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Post.css";
 import { Avatar } from "@mui/material";
 import Button from "@mui/material/Button";
-import { Input, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 
 import { db } from "../firebase.js";
 import {
@@ -79,6 +79,16 @@ function Post({ post, index }) {
       {/* image */}
       {/* username + caption */}{" "}
       <div className="post__text">
+        <Avatar
+          className="post__commentAvatar"
+          style={{
+            height: "25px",
+            width: "25px",
+            fontSize: "1rem",
+          }}
+          alt={username}
+          src="/static/images/avatar/1.jpg"
+        />
         <strong>{username}</strong>: {caption}
       </div>
       <div className="post__commentsContainer">

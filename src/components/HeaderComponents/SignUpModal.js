@@ -1,18 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import "./SignUpModal.css";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { Input, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import Modal from "@mui/material/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { signUpActions } from "../../app/slices/signUpSlice";
 import { loginInfoActions } from "../../app/slices/loginInfoSlice";
-import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  updateProfile,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 
 const SignUpModal = () => {
@@ -91,7 +86,7 @@ const SignUpModal = () => {
             />
             <TextField
               variant="standard"
-              placeholder="password"
+              placeholder="Enter a password with 6 or more characters"
               type="password"
               name="password"
               minLength="6"
@@ -103,7 +98,7 @@ const SignUpModal = () => {
             />
 
             {}
-            <Button type="submit" style={{ marginTop: "10px" }}>
+            <Button type="submit" style={{ marginTop: "20px" }}>
               Sign Up
             </Button>
           </form>
