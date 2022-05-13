@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./SignUpModal.css";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { Input } from "@mui/material";
+import { Input, TextField } from "@mui/material";
 import Modal from "@mui/material/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { signUpActions } from "../../app/slices/signUpSlice";
@@ -61,13 +61,14 @@ const SignUpModal = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <form className="signUpModal__modal">
+          <form className="signUpModal__modal" onSubmit={(e) => signUp(e)}>
             <img
               alt="instagram logo"
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzFj87v7cdZAMuQzMol5zsNpdwU87kaGE270YOjLf8vIklU9dfvQnZ_yKE5AiLvgttPA&usqp=CAU"
               className="signUpModal__image"
             />
-            <Input
+            <TextField
+              variant="standard"
               placeholder="username"
               type="text"
               name="username"
@@ -77,7 +78,8 @@ const SignUpModal = () => {
                 dispatch(loginInfoActions.setUsername(e.target.value))
               }
             />
-            <Input
+            <TextField
+              variant="standard"
               placeholder="email"
               type="email"
               name="email"
@@ -87,7 +89,8 @@ const SignUpModal = () => {
                 dispatch(loginInfoActions.setEmail(e.target.value))
               }
             />
-            <Input
+            <TextField
+              variant="standard"
               placeholder="password"
               type="password"
               name="password"
@@ -100,11 +103,7 @@ const SignUpModal = () => {
             />
 
             {}
-            <Button
-              onClick={(e) => signUp(e)}
-              type="submit"
-              style={{ marginTop: "10px" }}
-            >
+            <Button type="submit" style={{ marginTop: "10px" }}>
               Sign Up
             </Button>
           </form>

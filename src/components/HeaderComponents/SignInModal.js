@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./SignInModal.css";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { Input } from "@mui/material";
+import { Input, TextField } from "@mui/material";
 import Modal from "@mui/material/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { signInActions } from "../../app/slices/signInSlice";
@@ -64,14 +64,15 @@ const SignInModal = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <form className="signInModal__modal">
+          <form className="signInModal__modal" onSubmit={(e) => signIn(e)}>
             <img
               alt="instagram logo"
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzFj87v7cdZAMuQzMol5zsNpdwU87kaGE270YOjLf8vIklU9dfvQnZ_yKE5AiLvgttPA&usqp=CAU"
               className="signInModal__image"
             />
 
-            <Input
+            <TextField
+              variant="standard"
               placeholder="email"
               name="email"
               type="email"
@@ -81,18 +82,19 @@ const SignInModal = () => {
                 dispatch(loginInfoActions.setEmail(e.target.value))
               }
             />
-            <Input
+            <TextField
+              required
+              variant="standard"
               placeholder="password"
               name="password"
               type="password"
               minLength="6"
-              required
               value={passwordState}
               onChange={(e) =>
                 dispatch(loginInfoActions.setPassword(e.target.value))
               }
             />
-            <Button onClick={(e) => signIn(e)} style={{ marginTop: "10px" }}>
+            <Button type="submit" style={{ marginTop: "10px" }}>
               Sign In
             </Button>
           </form>

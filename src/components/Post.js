@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./Post.css";
 import { Avatar } from "@mui/material";
 import Button from "@mui/material/Button";
-import { Input } from "@mui/material";
+import { Input, TextField } from "@mui/material";
+
 import { db } from "../firebase.js";
 import {
   collection,
@@ -25,13 +26,13 @@ function Post({ post, index }) {
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
   const subCollection = collection(db, `posts/${postId}/comments`);
-  const commentInputControl = document.querySelector(".commentInput");
   const displayName = useSelector((state) => state.loginInfo.displayName);
   const user = useSelector((state) => state.loginInfo.user);
 
   const handleComment = (e) => {
     e.preventDefault();
-    let formInput = e.target.firstChild;
+    let formInput = e.target.firstChild.firstChild.firstChild;
+    console.log(formInput.value);
     try {
       addDoc(subCollection, {
         timestamp: serverTimestamp(),
@@ -97,29 +98,33 @@ function Post({ post, index }) {
           className="post__commentInputContainer"
           onSubmit={(e) => handleComment(e)}
         >
-          <input
+          <TextField
             required
-            id="commentInputControl"
+            id="standard-basic"
+            variant="standard"
             className="post__commentInput"
             onChange={(e) => {
               setComment(e.target.value);
             }}
             type="text"
             placeholder="Add a comment..."
-          ></input>
-          <button className="post__postButton">Post</button>
+          ></TextField>
+          <Button type="submit" className="post__postButton">
+            Post
+          </Button>
         </form>
       ) : (
         <div className="post__commentInputContainer">
-          <input
+          <TextField
             disabled
+            variant="standard"
             className="post__commentInput"
             onChange={(e) => {
               setComment(e.target.value);
             }}
             type="text"
             placeholder="Sign In to comment..."
-          ></input>
+          ></TextField>
           <Button disabled className="post__postButton" onClick={handleComment}>
             Post
           </Button>
