@@ -11,6 +11,7 @@ import {
   addDoc,
   serverTimestamp,
   orderBy,
+  limit,
 } from "firebase/firestore";
 import { useSelector } from "react-redux";
 // only taking in post item from array and index
@@ -28,7 +29,9 @@ function Post({ post, index }) {
   const displayName = useSelector((state) => state.loginInfo.displayName);
   const user = useSelector((state) => state.loginInfo.user);
 
-  const handleComment = () => {
+  const handleComment = (e) => {
+    e.preventDefault();
+    let formInput = e.target.firstChild;
     try {
       addDoc(subCollection, {
         timestamp: serverTimestamp(),
@@ -37,18 +40,19 @@ function Post({ post, index }) {
       });
       setComment("");
 
-      commentInputControl.value = "";
+      formInput.value = "";
     } catch (err) {
       console.log(err);
     }
   };
-  const q = query(subCollection, orderBy("timestamp", "asc"));
+  const q = query(subCollection, orderBy("timestamp", "desc"), limit(5));
   useEffect(() => {
     let unsubscribe;
     if (postId) {
       unsubscribe = onSnapshot(q, (snapshot) => {
         console.log("setting comments from on snapshot listener");
         setComments(snapshot.docs.map((doc) => doc.data()));
+        // use flex-direction: column-reverse to show last comment on bottom
       });
     }
 
@@ -69,17 +73,14 @@ function Post({ post, index }) {
         />
         <h3>{username}</h3>
       </div>
-
       {/*header -> avatar + username */}
-
       <img className="post__image" alt="sub" src={imageUrl} />
       {/* image */}
-
-      {/* username + caption */}
+      {/* username + caption */}{" "}
+      <div className="post__text">
+        <strong>{username}</strong>: {caption}
+      </div>
       <div className="post__commentsContainer">
-        <div className="post__text">
-          <strong>{username}</strong>: {caption}
-        </div>
         {comments.map((comment, index) => {
           return (
             <div key={index}>
@@ -92,8 +93,13 @@ function Post({ post, index }) {
         })}
       </div>
       {user ? (
-        <div className="post__commentInputContainer">
+        <form
+          className="post__commentInputContainer"
+          onSubmit={(e) => handleComment(e)}
+        >
           <input
+            required
+            id="commentInputControl"
             className="post__commentInput"
             onChange={(e) => {
               setComment(e.target.value);
@@ -101,10 +107,8 @@ function Post({ post, index }) {
             type="text"
             placeholder="Add a comment..."
           ></input>
-          <Button className="post__postButton" onClick={handleComment}>
-            Post
-          </Button>
-        </div>
+          <button className="post__postButton">Post</button>
+        </form>
       ) : (
         <div className="post__commentInputContainer">
           <input
@@ -126,6 +130,3 @@ function Post({ post, index }) {
 }
 
 export default Post;
-{
-  /* <div className="post__signInToComment">sign in to comment</div> */
-}
