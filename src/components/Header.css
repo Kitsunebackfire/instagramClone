@@ -20,7 +20,16 @@
 .header__loginContainer {
   display: flex;
   justify-self: flex-end;
+  align-items: center;
   
+  
+}
+
+.header__welcomeDisplayName {
+  margin-right: 10px;
+  padding-bottom: 4px;
+  font-size: 1rem;
+  color: rgb(117, 117, 117);
 }
 
 .header__navContainer { 

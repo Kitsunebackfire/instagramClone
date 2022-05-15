@@ -9,8 +9,8 @@ const UserHeader = () => {
     <div className="userHeader">
       <Avatar
         style={{
-          height: "120px",
-          width: "120px",
+          height: "130px",
+          width: "130px",
           fontSize: "3rem",
         }}
         className="userHeader__avatar"
@@ -19,8 +19,8 @@ const UserHeader = () => {
       />
 
       <div className="userHeader__infoContainer">
-        <div>{displayName}</div>
-        <div>number of photos</div>
+        <div className="userHeader__displayName">{displayName}</div>
+        <div className="userHeader__numberOfPhotos">number of photos</div>
       </div>
     </div>
   );

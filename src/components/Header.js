@@ -23,6 +23,7 @@ function Header() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.loginInfo.user);
   const username = useSelector((state) => state.loginInfo.username);
+  const displayName = useSelector((state) => state.loginInfo.displayName);
 
   useEffect(() => {
     const setUser = (arg) => dispatch(loginInfoActions.setUser(arg));
@@ -112,6 +113,9 @@ function Header() {
 
       {user ? (
         <div className="header__loginContainer">
+          <div className="header__welcomeDisplayName">
+            Welcome {displayName}!
+          </div>
           <Logout />
         </div>
       ) : (
