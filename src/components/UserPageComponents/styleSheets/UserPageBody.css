@@ -1,8 +1,8 @@
 .userPageBody {
-    border: 1px solid red;
     max-width: 75vw;
 }
 
-.userPageBody__photosContainer {
+.userPageBody__photosContainer {  background-color: #fafafa;
+
     padding: 20px;
 }

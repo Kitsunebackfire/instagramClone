@@ -7,7 +7,7 @@
   
 }
 
-.app__postsContainer {background-color: #fafafa;
+.app__postsContainer {
   display: flex;
   justify-items: center;
   align-items: center;
