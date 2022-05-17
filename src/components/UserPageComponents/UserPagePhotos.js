@@ -18,13 +18,11 @@ const UserPagePhotos = () => {
       {userPosts.map((post) => {
         return (
           <div key={post.id} className="userPagePhotos__photoContainer">
-            <div>{post.username}</div>
             <img
               className="userPagePhotos__photo"
               src={post.imageUrl}
               alt={post.caption}
             />
-            <div>{post.caption}</div>
           </div>
         );
       })}

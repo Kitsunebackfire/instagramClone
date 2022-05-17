@@ -7,23 +7,45 @@ import ImageUploadModal from "./HeaderComponents/ImageUploadModal";
 import { mdiAccountCircleOutline, mdiHomeCircleOutline } from "@mdi/js";
 import Icon from "@mdi/react";
 import { useSelector, useDispatch } from "react-redux";
-import Logout from "./HeaderComponents/Logout";
-import { loginInfoActions } from "../app/slices/loginInfoSlice";
-import { signUpActions } from "../app/slices/signUpSlice";
-import { signInActions } from "../app/slices/signInSlice";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   updateProfile,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { auth } from "../firebase";
+import { onSnapshot, query, orderBy } from "firebase/firestore";
+
+import { auth, postsColRef } from "../firebase";
+import Logout from "./HeaderComponents/Logout";
+import { loginInfoActions } from "../app/slices/loginInfoSlice";
+import { signUpActions } from "../app/slices/signUpSlice";
+import { signInActions } from "../app/slices/signInSlice";
+import { postsSliceActions } from "../app/slices/postsSlice";
 
 function Header() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.loginInfo.user);
   const username = useSelector((state) => state.loginInfo.username);
   const displayName = useSelector((state) => state.loginInfo.displayName);
+
+  const setPosts = (arg) => dispatch(postsSliceActions.setPosts(arg));
+  const postsState = useSelector((state) => state.posts.posts);
+
+  // sets posts in store
+  useEffect(() => {
+    const q = query(postsColRef, orderBy("timestamp", "desc"));
+    const unsub = onSnapshot(q, (snapshot) => {
+      let postsArray = [];
+      snapshot.forEach((doc) => {
+        postsArray.push({
+          ...doc.data(),
+          id: doc.id,
+        });
+      });
+      setPosts(postsArray);
+    });
+    return () => unsub();
+  }, []);
 
   useEffect(() => {
     const setUser = (arg) => dispatch(loginInfoActions.setUser(arg));
