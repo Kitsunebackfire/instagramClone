@@ -1,0 +1,16 @@
+.userPagePhotos__photosContainer{
+    border: 1px solid green;display: grid;
+    grid-template-columns: repeat(3 ,minmax(400px, 1fr));
+    grid-template-rows: auto;
+}
+
+.userPagePhotos__photosContainer{
+    width: 400px;
+    height: 500px;
+}
+
+
+.userPagePhotos__photo{
+    width: 400px;
+    height: 400px;
+}
