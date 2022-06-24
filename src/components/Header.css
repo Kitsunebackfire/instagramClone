@@ -48,3 +48,28 @@
   height: 40px;
   color: rgb(117, 117, 117);
 }
+
+@media only screen and (max-width: 561px ) {
+  .header {
+    background-color: white;
+  padding: 20px 70px 20px 70px;
+  object-fit: contain;
+  border-bottom: 1px solid lightgray;
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: auto;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 45px;
+  }
+
+  .header__navContainer { 
+    display: flex;
+    justify-self: center;
+  }
+  .header__instagramLogo {
+    height: 37px;
+    display: flex;
+    justify-self: center;
+}
+}
